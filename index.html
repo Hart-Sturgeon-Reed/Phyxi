@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Intergalactic</title>
+    
+    <script src="lib/jquery.js"></script>
+    <script src="lib/TweenMax.min.js"></script>
+    <script src="lib/jquery.gsap.min.js"></script>
+    <script src="lib/pixi.dev.js"></script>
+    <script src="lib/physicsJS.min.js"></script>
+    
+    <script src="utils.js"></script>
+    <script src="BasicInput.js"></script>
+    
+    <script src="PlatformerInput.js"></script>
+    <script src="Collisions.js"></script>
+    <script src="Animation.js"></script>
+    
+    <script src="Assets.js"></script>
+    <script src="UI.js"></script>
+    <script src="Arena.js"></script>
+    <script src="PlayerLogic.js"></script>
+    
+    <script src="Options.js"></script>
+    <script src="AnimatedSprite.js"></script>
+    <script src="Healthbar.js"></script>
+    <script src="Item.js"></script>
+    <script src="Crate.js"></script>
+    <script src="Projectile.js"></script>
+    <script src="Platform.js"></script>
+    <script src="Alien.js"></script>
+    <script src="Spacedude.js"></script>
+    <script src="Particle.js"></script>
+    <script src="ObjectPool.js"></script>
+    <script src="particles.js"></script>
+    
+    <script src="Intergalactic.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="customFonts.css">
+    <link rel="stylesheet" type="text/css" href="pixi.css">
+    <script>
+        
+    </script>
+</head>
+
+<body>
+    <canvas id="game"></canvas>
+    <div id="info">
+        <div id="player1">Player 1</div><div id="player2">Player 2</div>
+        <div id="notification"></div>
+        <div id="player1Not"></div>
+        <div id="player2Not"></div>
+    </div>
+    <div id="curtain"></div>
+    
+</body>
+<script>
+    $('#info').hide();
+    $(document).ready(function () {
+        init();
+        });
+</script>
+</html>
