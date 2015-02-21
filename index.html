@@ -2,63 +2,40 @@
 
 <html>
 <head>
-    <title>Intergalactic</title>
+    <title>Phyxi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="mobile-web-app-capable" content="yes"> 
     
-    <script src="lib/jquery.js"></script>
-    <script src="lib/TweenMax.min.js"></script>
-    <script src="lib/jquery.gsap.min.js"></script>
-    <script src="lib/pixi.dev.js"></script>
-    <script src="lib/physicsJS.min.js"></script>
+    <script src="/lib/jquery.js"></script>
+    <script src="/lib/jquery.gsap.min.js"></script>
+    <script src="/lib/TweenMax.min.js"></script>
     
-    <script src="utils.js"></script>
-    <script src="BasicInput.js"></script>
+    <script src="/lib/pixi.dev.js"></script>
+    <script src="/lib/physicsJS.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     
-    <script src="PlatformerInput.js"></script>
-    <script src="Collisions.js"></script>
-    <script src="Animation.js"></script>
+    <script src="/client.js"></script>
+    <script src="/util.js"></script>
     
-    <script src="Assets.js"></script>
-    <script src="UI.js"></script>
-    <script src="Arena.js"></script>
-    <script src="PlayerLogic.js"></script>
+    <script src="/game/world.js"></script>
+    <script src="/game/stage.js"></script>
+    <script src="/game/entities.js"></script>
+    <script src="/game/interactions.js"></script>
     
-    <script src="Options.js"></script>
-    <script src="AnimatedSprite.js"></script>
-    <script src="Healthbar.js"></script>
-    <script src="Item.js"></script>
-    <script src="Crate.js"></script>
-    <script src="Projectile.js"></script>
-    <script src="Platform.js"></script>
-    <script src="Alien.js"></script>
-    <script src="Spacedude.js"></script>
-    <script src="Particle.js"></script>
-    <script src="ObjectPool.js"></script>
-    <script src="particles.js"></script>
-    
-    <script src="Intergalactic.js"></script>
+    <script src="/particles/Particle.js"></script>
+    <script src="/particles/ObjectPool.js"></script>
+    <script src="/particles/particles.js"></script>
     
     <link rel="stylesheet" type="text/css" href="customFonts.css">
-    <link rel="stylesheet" type="text/css" href="pixi.css">
-    <script>
-        
-    </script>
+    <link rel="stylesheet" type="text/css" href="/phyxi.css">
 </head>
 
 <body>
-    <canvas id="game"></canvas>
-    <div id="info">
-        <div id="player1">Player 1</div><div id="player2">Player 2</div>
-        <div id="notification"></div>
-        <div id="player1Not"></div>
-        <div id="player2Not"></div>
-    </div>
-    <div id="curtain"></div>
-    
+    <div id="game"></div>
 </body>
 <script>
-    $('#info').hide();
-    $(document).ready(function () {
+    $(document).ready(function(){
         init();
-        });
+    });
 </script>
 </html>
