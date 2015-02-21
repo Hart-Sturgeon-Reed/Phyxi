@@ -36,11 +36,12 @@ function setupInteractions(){
 }
 
 function Blackhole(){
+    world.warp(0.10);
     world.changeGrav(GRV.zero);
     primary = Physics.behavior('attractor', {
         order: 1.16,
-        strength: 0.4,
-        max: 700,
+        strength: 0.32,
+        max: 460,
         min: 10
     });
     
@@ -71,7 +72,14 @@ function Fluid(){
 }
 
 function Organism(){
+    world.warp(0.76);
     world.changeGrav(GRV.low);
+    world.changeOrbit(Physics.behavior('newtonian', {
+        strength: 0.11,
+        max: 180,
+        min: 20
+    }));
+    
     primary = Physics.behavior('attractor', {
         order: 1.16,
         strength: 0.4,
@@ -81,8 +89,8 @@ function Organism(){
     
     secondary = Physics.behavior('attractor', {
         order: 1.2,
-        strength: -0.8,
-        max: 60,
+        strength: -6.8,
+        max: 80,
         min: 10
     });
 }

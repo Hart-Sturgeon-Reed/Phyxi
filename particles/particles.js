@@ -4,8 +4,6 @@ particleSprites = {
     fire: PIXI.Texture.fromImage('assets/particles/fire.png')
 }
 
-particleBrush = Minimal;
-
 function setupParticles(){
     particles = [];
     

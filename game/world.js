@@ -41,11 +41,17 @@ function BasicWorld() {
     });
     world.add(gravity);
     
+    orbitalGrav = Physics.behavior('newtonian', {
+        strength: 0.06,
+        max: 80,
+        min: 50
+    });
+    world.add(orbitalGrav);
+    
     world.add(Physics.behavior('body-impulse-response') );
     world.add(Physics.behavior('body-collision-detection') );
     world.add(Physics.behavior('sweep-prune') );
     world.add(Physics.behavior('interactive', { el: renderer.container }));
-    world.add(Physics.behavior('newtonian', { strength: .06, max:80,min:50}));
     
     world.changeGrav = function(newGrav){
         world.removeBehavior(gravity);
@@ -54,6 +60,12 @@ function BasicWorld() {
             acc: { x : 0, y: newGrav } 
         });
         world.add(gravity);
+    }
+    
+    world.changeOrbit = function(newOrbit){
+        world.removeBehavior(orbitalGrav);
+        orbitGrav = newOrbit;
+        world.add(orbitalGrav);
     }
     
 

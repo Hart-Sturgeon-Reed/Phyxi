@@ -37,11 +37,13 @@ function init(){
     
     stage = new TestStage();
     
+    particleBrush = Minimal;
     //set up particle system
     setupParticles();
     
     // create a physics world
     world = new BasicWorld();
+    
     
     // set physics interactions
     setupInteractions();
