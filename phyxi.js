@@ -37,6 +37,18 @@ io.on('connection', function(socket){
             game.emit('accel', accel);
         }
     });
+    socket.on('primary click', function(e){
+        console.log('primary click');
+        if(game){
+            game.emit('primary click');
+        }
+    });
+    socket.on('secondary click', function(e){
+        console.log('secondary click');
+        if(game){
+            game.emit('secondary click');
+        }
+    });
     
     socket.on("disconnect", function(){
         console.log('client '+socket.sid+' disconnected');

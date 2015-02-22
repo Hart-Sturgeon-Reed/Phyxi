@@ -15,24 +15,33 @@ function setupInteractions(){
     
     world.on({
         'interact:poke': function( pos ){
-            world.wakeUpAll();
-            primary.position( mpos );
-            secondary.position( mpos );
-            world.remove( primary );
-            world.add( secondary );
-            
+            toggleToSecondary();
         }
         ,'interact:move': function( pos ){
-            primary.position( mpos );
-            secondary.position( mpos );
+            updatePos();
         }
         ,'interact:release': function(){
-            world.wakeUpAll();
-            world.add( primary );
-            world.remove( secondary );
+            toggleToPrimary();
             
         }
     });
+}
+
+function toggleToPrimary(){
+    world.wakeUpAll();
+    world.add( primary );
+    world.remove( secondary );
+}
+function toggleToSecondary(){
+    world.wakeUpAll();
+    primary.position( mpos );
+    secondary.position( mpos );
+    world.remove( primary );
+    world.add( secondary );
+}
+function updatePos(){
+    primary.position( mpos );
+    secondary.position( mpos );
 }
 
 function Blackhole(){

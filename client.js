@@ -16,6 +16,13 @@ function init(){
         secondary.position(mpos);
     });
     
+    socket.on('primary click', function(){
+        toggleToPrimary();
+    });
+    socket.on('secondary click', function(){
+        toggleToSecondary();
+    });
+    
     // track mouse position
     mpos = {
         x:0,
@@ -82,4 +89,5 @@ function init(){
 function updateCursor(){
     cursor.position.x = mpos.x;
     cursor.position.y = mpos.y;
+    updatePos();
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html ng-app='ControlApp'>
 <head>
     <title>Phyxi Control Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,12 +20,12 @@
     <link rel="stylesheet" type="text/css" href="/css/control.css">
 </head>
 
-<body>
+<body ng-controller='Controller'>
     <div id="menu">
     
     </div>
     <div id="pane">
-    
+        <div ng-repeat='item in controls' class='control lv1' id='{{item.label}}'>{{item.text}}</div>
     </div>
 </body>
 <script>

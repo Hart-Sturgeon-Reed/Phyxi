@@ -1,3 +1,12 @@
+angular.module('ControlApp', [])
+    .controller('Controller', ['$scope', function($scope) {
+        $scope.controls = [
+            {text:'Primary', down:true, label:'P'},
+            {text:'Secondary', down:false, label:'S'},
+            {text:'Switch Mode', down:false, label:'M'}
+        ];
+    }]);
+
 
 function init(){
     socket = io();
@@ -6,7 +15,15 @@ function init(){
         socket.emit('init controller');
     });
     
+    $('#P').click(function(e){
+        socket.emit('primary click');
+    });
     
+    $('#S').click(function(e){
+        socket.emit('secondary click');
+    });
+    
+    lockedAllowed = window.screen.orientation.lock('landscape-primary');
     if (window.DeviceMotionEvent == undefined) {
         //No accelerometer is present. Use buttons. 
         console.log("no accelerometer");
