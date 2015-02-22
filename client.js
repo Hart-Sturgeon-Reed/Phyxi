@@ -25,6 +25,9 @@ function init(){
     socket.on('switch mode', function(){
         switchMode();
     });
+    socket.on('disable effect', function(){
+        disableEffect();
+    });
     
     // track mouse position
     mpos = {

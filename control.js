@@ -1,12 +1,10 @@
 angular.module('ControlApp', [])
 .controller('Controller', ['$scope', function($scope) {
     $scope.midControls = [
-        {text:'Primary', down:true, label:'P'},
-        {text:'Secondary', down:false, label:'S'},
+        {text:'Reset World', down:false, label:'R'},
         {text:'Switch Mode', down:false, label:'M'},
-        {text:'Gravity', down:false, label:'G'},
-        {text:'Newtonian', down:false, label:'N'},
-        {text:'World', down:false, label:'W'}
+        {text:'Disable Effect', down:false, label:'D'},
+        {text:'Sleep', down:false, label:'SL'}
     ];
     $scope.leftControls = [
         {text:'Set Secondary', down:true, label:'SS'},
@@ -32,6 +30,9 @@ function init(){
     });
     $('#M').click(function(e){
         socket.emit('switch mode');
+    });
+    $('#D').click(function(e){
+        socket.emit('disable effect');
     });
     
     lockedAllowed = window.screen.orientation.lock('landscape-primary');

@@ -34,9 +34,13 @@ function switchMode(){
     if(mode>modes.length-1){
         mode = 0;
     }
+    disableEffect();
+    modes[mode]();
+}
+
+function disableEffect(){
     world.remove( primary );
     world.remove( secondary );
-    modes[mode]();
 }
 
 function toggleToPrimary(){
@@ -58,7 +62,7 @@ function updatePos(){
 
 function Blackhole(){
     console.log('Blackhole mode');
-    world.warp(0.10);
+    world.warp(0.20);
     world.changeGrav(GRV.zero);
     primary = Physics.behavior('attractor', {
         order: 1.16,
@@ -81,17 +85,17 @@ function Fluid(){
     world.changeGrav(GRV.micro);
     
     primary = Physics.behavior('attractor', {
-        order: 1,
-        strength: -0.06,
-        max: 160,
-        min: 60
-    });
-    
-    secondary = Physics.behavior('attractor', {
         order: 1.2,
         strength: 0.4,
         max: 600,
         min: 10
+    });
+    
+    secondary = Physics.behavior('attractor', {
+        order: 1,
+        strength: -0.06,
+        max: 160,
+        min: 60
     });
 }
 

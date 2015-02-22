@@ -30,30 +30,37 @@ io.on('connection', function(socket){
     socket.on('init controller',function(){
         controller = socket;
         console.log('client '+socket.sid+' is a controller');
-    });
-    
-    socket.on('accel', function(accel){
-        if(game){
-            game.emit('accel', accel);
-        }
-    });
-    socket.on('primary click', function(e){
-        console.log('primary click');
-        if(game){
-            game.emit('primary click');
-        }
-    });
-    socket.on('secondary click', function(e){
-        console.log('secondary click');
-        if(game){
-            game.emit('secondary click');
-        }
-    });
-    socket.on('switch mode', function(e){
-        console.log('switching interaction modes');
-        if(game){
-            game.emit('switch mode');
-        }
+        
+        // controller events
+        socket.on('accel', function(accel){
+            if(game){
+                game.emit('accel', accel);
+            }
+        });
+        socket.on('primary click', function(e){
+            console.log('primary click');
+            if(game){
+                game.emit('primary click');
+            }
+        });
+        socket.on('secondary click', function(e){
+            console.log('secondary click');
+            if(game){
+                game.emit('secondary click');
+            }
+        });
+        socket.on('switch mode', function(e){
+            console.log('switching interaction modes');
+            if(game){
+                game.emit('switch mode');
+            }
+        });
+        socket.on('disable effect', function(e){
+            console.log('disabling effect');
+            if(game){
+                game.emit('disable effect');
+            }
+        });
     });
     
     socket.on("disconnect", function(){
