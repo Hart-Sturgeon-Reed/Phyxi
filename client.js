@@ -4,13 +4,13 @@ function init(){
     // setup websocket
     socket = io();
     socket.on('start up',function(id) {
-        console.log('We are Client #'+id);
+//        console.log('We are Client #'+id);
         socket.emit('init game');
     });
     socket.on('accel', function(accel){
         //console.dir(accel);
-        mpos.x = stageWidth/2 + (accel.xTilt*(stageWidth/2));
-        mpos.y = stageHeight/2 - (accel.yTilt*(stageHeight/2));
+        mpos.x = stageWidth/2 + (accel.xTilt*(stageWidth/1.2));
+        mpos.y = stageHeight/2 - (accel.yTilt*(stageHeight/1.2));
         
         primary.position(mpos);
         secondary.position(mpos);
@@ -21,6 +21,9 @@ function init(){
     });
     socket.on('secondary click', function(){
         toggleToSecondary();
+    });
+    socket.on('switch mode', function(){
+        switchMode();
     });
     
     // track mouse position

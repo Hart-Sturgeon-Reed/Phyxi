@@ -1,12 +1,20 @@
 angular.module('ControlApp', [])
-    .controller('Controller', ['$scope', function($scope) {
-        $scope.controls = [
-            {text:'Primary', down:true, label:'P'},
-            {text:'Secondary', down:false, label:'S'},
-            {text:'Switch Mode', down:false, label:'M'}
-        ];
-    }]);
-
+.controller('Controller', ['$scope', function($scope) {
+    $scope.midControls = [
+        {text:'Primary', down:true, label:'P'},
+        {text:'Secondary', down:false, label:'S'},
+        {text:'Switch Mode', down:false, label:'M'},
+        {text:'Gravity', down:false, label:'G'},
+        {text:'Newtonian', down:false, label:'N'},
+        {text:'World', down:false, label:'W'}
+    ];
+    $scope.leftControls = [
+        {text:'Set Secondary', down:true, label:'SS'},
+    ];
+    $scope.rightControls = [
+        {text:'Set Primary', down:true, label:'SP'},
+    ];
+}]);
 
 function init(){
     socket = io();
@@ -15,12 +23,15 @@ function init(){
         socket.emit('init controller');
     });
     
-    $('#P').click(function(e){
+    $('.rightButton').click(function(e){
         socket.emit('primary click');
     });
     
-    $('#S').click(function(e){
+    $('.leftButton').click(function(e){
         socket.emit('secondary click');
+    });
+    $('#M').click(function(e){
+        socket.emit('switch mode');
     });
     
     lockedAllowed = window.screen.orientation.lock('landscape-primary');

@@ -49,6 +49,12 @@ io.on('connection', function(socket){
             game.emit('secondary click');
         }
     });
+    socket.on('switch mode', function(e){
+        console.log('switching interaction modes');
+        if(game){
+            game.emit('switch mode');
+        }
+    });
     
     socket.on("disconnect", function(){
         console.log('client '+socket.sid+' disconnected');

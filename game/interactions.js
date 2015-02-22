@@ -25,6 +25,18 @@ function setupInteractions(){
             
         }
     });
+    modes = [Organism,Blackhole,Fluid];
+    mode = 0;
+}
+
+function switchMode(){
+    mode++;
+    if(mode>modes.length-1){
+        mode = 0;
+    }
+    world.remove( primary );
+    world.remove( secondary );
+    modes[mode]();
 }
 
 function toggleToPrimary(){
@@ -45,6 +57,7 @@ function updatePos(){
 }
 
 function Blackhole(){
+    console.log('Blackhole mode');
     world.warp(0.10);
     world.changeGrav(GRV.zero);
     primary = Physics.behavior('attractor', {
@@ -63,6 +76,8 @@ function Blackhole(){
 }
 
 function Fluid(){
+    console.log('Fluid mode');
+    world.warp(1);
     world.changeGrav(GRV.micro);
     
     primary = Physics.behavior('attractor', {
@@ -81,6 +96,7 @@ function Fluid(){
 }
 
 function Organism(){
+    console.log('Organism mode');
     world.warp(0.76);
     world.changeGrav(GRV.low);
     world.changeOrbit(Physics.behavior('newtonian', {

@@ -21,11 +21,22 @@
 </head>
 
 <body ng-controller='Controller'>
-    <div id="menu">
-    
+    <div class='tex'></div>
+    <div class="menu lv2">
+        PhyxiJS v0.1
     </div>
-    <div id="pane">
-        <div ng-repeat='item in controls' class='control lv1' id='{{item.label}}'>{{item.text}}</div>
+    <div class='button leftButton lv3'>L</div>
+    <div class='button rightButton lv3'>R</div>
+    <div class='scroller'>
+        <div class="pane">
+            <div ng-repeat='item in leftControls' class='control lv1' id='{{item.label}}'>{{item.text}}</div>
+        </div>
+        <div class="pane">
+            <div ng-repeat='item in midControls' class='control lv1' id='{{item.label}}'>{{item.text}}</div>
+        </div>
+        <div class="pane">
+            <div ng-repeat='item in rightControls' class='control lv1' id='{{item.label}}'>{{item.text}}</div>
+        </div>
     </div>
 </body>
 <script>
