@@ -2,9 +2,18 @@ function init(){
     console.log('We\'re in business!');
     
     // setup websocket
-    var socket = io();
+    socket = io();
     socket.on('start up',function(id) {
         console.log('We are Client #'+id);
+        socket.emit('init game');
+    });
+    socket.on('accel', function(accel){
+        //console.dir(accel);
+        mpos.x = stageWidth/2 + (accel.xTilt*(stageWidth/2));
+        mpos.y = stageHeight/2 - (accel.yTilt*(stageHeight/2));
+        
+        primary.position(mpos);
+        secondary.position(mpos);
     });
     
     // track mouse position
@@ -12,10 +21,12 @@ function init(){
         x:0,
         y:0
     }
-    $(document).mousemove(function(event){
-        mpos.x = event.pageX;
-        mpos.y = event.pageY;
-    });
+//    $(document).mousemove(function(event){
+//        mpos.x = event.pageX;
+//        mpos.y = event.pageY;
+//    });
+    
+    particleBrush = Fireflies;
     
     colors = {
         white: '0xFFFFFF',
@@ -36,8 +47,7 @@ function init(){
     });
     
     stage = new TestStage();
-    
-    particleBrush = Minimal;
+
     //set up particle system
     setupParticles();
     

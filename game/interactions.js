@@ -16,15 +16,15 @@ function setupInteractions(){
     world.on({
         'interact:poke': function( pos ){
             world.wakeUpAll();
-            primary.position( pos );
-            secondary.position( pos );
+            primary.position( mpos );
+            secondary.position( mpos );
             world.remove( primary );
             world.add( secondary );
             
         }
         ,'interact:move': function( pos ){
-            primary.position( pos );
-            secondary.position( pos );
+            primary.position( mpos );
+            secondary.position( mpos );
         }
         ,'interact:release': function(){
             world.wakeUpAll();
