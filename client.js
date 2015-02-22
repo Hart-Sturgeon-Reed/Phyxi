@@ -1,3 +1,4 @@
+cursors = [];
 function init(){
     console.log('We\'re in business!');
     
@@ -7,26 +8,18 @@ function init(){
 //        console.log('We are Client #'+id);
         socket.emit('init game');
     });
-    socket.on('accel', function(accel){
-        //console.dir(accel);
-        mpos.x = stageWidth/2 + (accel.xTilt*(stageWidth/1.2));
-        mpos.y = stageHeight/2 - (accel.yTilt*(stageHeight/1.2));
-        
-        primary.position(mpos);
-        secondary.position(mpos);
-    });
     
-    socket.on('primary click', function(){
-        toggleToPrimary();
+    socket.on('primary click', function(cursor){
+        toggleToPrimary(cursors[cursor]);
     });
-    socket.on('secondary click', function(){
-        toggleToSecondary();
+    socket.on('secondary click', function(cursor){
+        toggleToSecondary(cursors[cursor]);
     });
     socket.on('switch mode', function(){
         switchMode();
     });
-    socket.on('disable effect', function(){
-        disableEffect();
+    socket.on('disable effect', function(cursor){
+        disableEffect(cursors[cursor]);
     });
     
     // track mouse position
@@ -69,7 +62,7 @@ function init(){
     
     
     // set physics interactions
-    setupInteractions();
+    //setupInteractions();
     
     //set interaction model (optional)
     Organism();
@@ -79,7 +72,7 @@ function init(){
     
     // render on each step
     world.on('step', function(){
-        updateCursor();
+        //updateCursor();
         updateParticles();
         world.render();
     });
@@ -90,10 +83,20 @@ function init(){
         world.step(time);
     });
     Physics.util.ticker.start();
+    
+    socket.on('accel', function(accel, cursor){
+        //console.dir(accel);
+        var cursor = cursors[cursor];
+        cursor.position.x = stageWidth/2 + (accel.xTilt*(stageWidth/1.2));
+        cursor.position.y = stageHeight/2 - (accel.yTilt*(stageHeight/1.2));
+        
+        cursor.primary.position(cursor.position);
+        cursor.secondary.position(cursor.position);
+    });
 }
 
-function updateCursor(){
-    cursor.position.x = mpos.x;
-    cursor.position.y = mpos.y;
-    updatePos();
+function updateCursors(){
+    for (cursor of cursors){
+        updatePos();
+    }
 }

@@ -4,8 +4,10 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 var clientNum = 1;
+var controllerNum = 0;
 
-var game = controller = null;
+var game = null;
+var controllers = [];
 
 app.use(express.static(__dirname));
 
@@ -28,25 +30,26 @@ io.on('connection', function(socket){
     });
     
     socket.on('init controller',function(){
-        controller = socket;
+        var controller = socket;
         console.log('client '+socket.sid+' is a controller');
-        
+        socket.num = controllerNum++;
+        controllers.push(controller);
         // controller events
         socket.on('accel', function(accel){
             if(game){
-                game.emit('accel', accel);
+                game.emit('accel', accel, socket.num);
             }
         });
-        socket.on('primary click', function(e){
+        socket.on('primary click', function(){
             console.log('primary click');
             if(game){
-                game.emit('primary click');
+                game.emit('primary click',socket.num);
             }
         });
-        socket.on('secondary click', function(e){
+        socket.on('secondary click', function(){
             console.log('secondary click');
             if(game){
-                game.emit('secondary click');
+                game.emit('secondary click',socket.num);
             }
         });
         socket.on('switch mode', function(e){
@@ -55,10 +58,10 @@ io.on('connection', function(socket){
                 game.emit('switch mode');
             }
         });
-        socket.on('disable effect', function(e){
+        socket.on('disable effect', function(){
             console.log('disabling effect');
             if(game){
-                game.emit('disable effect');
+                game.emit('disable effect',controller.num);
             }
         });
     });

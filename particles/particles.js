@@ -16,6 +16,35 @@ function setupParticles(){
     frequency = 0;
 }
 
+function addParticle(){
+    for (cursor of cursors){
+        var np = particlePool.requestObject();
+        np.setPosition(cursor.position.x,cursor.position.y);
+        if(np.new){
+            stage.ui.addChild(np.sprite);
+            particles.push(np);
+        }
+    }
+}
+
+function addParticles(num,xPos,yPos){
+    for (var i=0;i<num;i++){
+        addParticle(xPos,yPos);
+    }
+}
+
+function updateParticles(){
+    for (var i=0;i<particleFlow;i++){
+        addParticle();
+    }
+    for (var p of particles){
+        p.update();
+        if(p.dead){
+            particlePool.returnObject(p);
+        }
+    }
+}
+
 function Minimal(){
     gravity = 0.02;
     particleFlow = 1;
@@ -70,32 +99,5 @@ function Sparks() {
     particleSize = {
         min: 8,
         max: 16
-    }
-}
-
-function addParticle(xPos,yPos){
-    var np = particlePool.requestObject();
-    np.setPosition(mpos.x,mpos.y);
-    if(np.new){
-        stage.ui.addChild(np.sprite);
-        particles.push(np);
-    }
-}
-
-function addParticles(num,xPos,yPos){
-    for (var i=0;i<num;i++){
-        addParticle(xPos,yPos);
-    }
-}
-
-function updateParticles(){
-    for (var i=0;i<particleFlow;i++){
-        addParticle();
-    }
-    for (var p of particles){
-        p.update();
-        if(p.dead){
-            particlePool.returnObject(p);
-        }
     }
 }
