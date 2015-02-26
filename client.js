@@ -19,26 +19,27 @@ function init(){
         socket.emit('init game');
     });
     
-    socket.on('primary click', function(cursor){
-        toggleToPrimary(cursors[cursor]);
+    socket.on('primary click', function(socketNum){
+        toggleToPrimary(getCursor(socketNum));
     });
-    socket.on('secondary click', function(cursor){
-        toggleToSecondary(cursors[cursor]);
+    socket.on('secondary click', function(socketNum){
+        toggleToSecondary(getCursor(socketNum));
     });
     socket.on('switch mode', function(){
         switchMode();
     });
-    socket.on('disable effect', function(cursor){
-        disableEffect(cursors[cursor]);
+    socket.on('disable effect', function(socketNum){
+        disableEffect(getCursor(socketNum));
     });
     socket.on('add controller', addUser);
+    socket.on('controller disconnected', removeUser);
     
     // track mouse position
     defaultCursor = addUser();
-    defaultCursor.disabled = false; // removes default cursor when a controller is connected
+    defaultCursor.num = 0;
     
     $(document).mousemove(function(event){
-        if(!defaultCursor.disabled){
+        if(defaultCursor.enabled){
             defaultCursor.position.x = event.pageX;
             defaultCursor.position.y = event.pageY;
         }
@@ -65,7 +66,7 @@ function init(){
     world = new BasicWorld();
     
     //set interaction model (optional)
-    Organism();
+    Fluid();
     
     // add physics entities
     addEntities();
@@ -84,9 +85,12 @@ function init(){
     });
     Physics.util.ticker.start();
     
-    socket.on('accel', function(accel, cursor){
-        //console.dir(accel);
-        var cursor = cursors[cursor];
+    socket.on('accel', function(accel, socketNum){
+//        console.log('controller at socket '+socketNum+':');
+//        console.dir(accel);
+        defaultCursor.enabled = false;
+        disableEffect(defaultCursor);
+        var cursor = getCursor(socketNum);
         cursor.position.x = stageWidth/2 + (accel.xTilt*(stageWidth/1.2));
         cursor.position.y = stageHeight/2 - (accel.yTilt*(stageHeight/1.2));
         
@@ -95,15 +99,34 @@ function init(){
     });
 }
 
-function addUser(){
+function addUser(socketNum){
     var cursor = new PIXI.Sprite(PIXI.Texture.fromImage('/assets/sphere.png'));
     cursor.anchor = {x:0.5,y:0.5};
     cursor.width = 16;
     cursor.height = 16;
     cursor.tint = colors.teal;
+    cursor.num = socketNum;
+    cursor.enabled = true;
     setupInteractions(cursor);
     cursors.push(cursor);
     return cursor;
+}
+
+function removeUser(socketNum){
+    var dead = cursors.splice(cursors.indexOf(getCursor(socketNum)),1)[0];
+    dead.enabled = false;
+    disableEffect(dead);
+    console.log('removing controller '+socketNum);
+    console.dir(dead);
+}
+
+function getCursor(socketNum){
+    for (var cursor of cursors){
+        if (cursor.num == socketNum){
+            return cursor;
+        }
+    }
+    return null;
 }
 
 function updateCursors(){

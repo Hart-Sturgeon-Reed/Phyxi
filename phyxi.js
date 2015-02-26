@@ -34,7 +34,8 @@ io.on('connection', function(socket){
         console.log('client '+socket.sid+' is a controller');
         socket.num = controllerNum++;
         controllers.push(controller);
-        game.emit('add controller');
+        socket.isController = true;
+        game.emit('add controller', socket.num);
         // controller events
         socket.on('accel', function(accel){
             if(game){
@@ -63,6 +64,11 @@ io.on('connection', function(socket){
             console.log('disabling effect');
             if(game){
                 game.emit('disable effect',controller.num);
+            }
+        });
+        socket.on("disconnect", function(){
+            if(game){
+                game.emit('controller disconnected', socket.num);
             }
         });
     });

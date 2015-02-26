@@ -70,6 +70,7 @@ function BasicWorld() {
     
     world.on({
         'interact:poke': function( pos ){
+            defaultCursor.enabled = true;
             toggleToSecondary(defaultCursor);
         }
         ,'interact:move': function( pos ){

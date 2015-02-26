@@ -18,11 +18,13 @@ function setupParticles(){
 
 function addParticle(){
     for (cursor of cursors){
-        var np = particlePool.requestObject();
-        np.setPosition(cursor.position.x,cursor.position.y);
-        if(np.new){
-            stage.ui.addChild(np.sprite);
-            particles.push(np);
+        if(cursor.enabled){
+            var np = particlePool.requestObject();
+            np.setPosition(cursor.position.x,cursor.position.y);
+            if(np.new){
+                stage.ui.addChild(np.sprite);
+                particles.push(np);
+            }
         }
     }
 }

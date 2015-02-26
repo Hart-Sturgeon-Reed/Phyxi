@@ -22,7 +22,7 @@ function switchMode(){
     if(mode>modes.length-1){
         mode = 0;
     }
-    disableEffects();
+    disableAllEffects();
     modes[mode]();
 }
 
@@ -31,7 +31,7 @@ function disableEffect(cursor){
     world.remove( cursor.secondary );
 }
 
-function disableEffects(){
+function disableAllEffects(){
     for (cursor of cursors){
         world.remove( cursor.primary );
         world.remove( cursor.secondary );
@@ -82,14 +82,14 @@ function Fluid(){
     world.changeGrav(GRV.micro);
     
     for (cursor of cursors){
-        cursor.primary = Physics.behavior('attractor', {
+        cursor.secondary = Physics.behavior('attractor', {
             order: 1.2,
             strength: 0.4,
             max: 600,
             min: 10
         });
     
-        cursor.secondary = Physics.behavior('attractor', {
+        cursor.primary = Physics.behavior('attractor', {
             order: 1,
             strength: -0.06,
             max: 160,
