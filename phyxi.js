@@ -4,7 +4,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 var clientNum = 1;
-var controllerNum = 0;
+var controllerNum = 1;
 
 var game = null;
 var controllers = [];
@@ -34,6 +34,7 @@ io.on('connection', function(socket){
         console.log('client '+socket.sid+' is a controller');
         socket.num = controllerNum++;
         controllers.push(controller);
+        game.emit('add controller');
         // controller events
         socket.on('accel', function(accel){
             if(game){

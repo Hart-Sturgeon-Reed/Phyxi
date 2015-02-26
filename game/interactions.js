@@ -15,19 +15,6 @@ function setupInteractions(cursor){
         max: 60,
         min: 10
     });
-    
-//    world.on({
-//        'interact:poke': function( pos ){
-//            toggleToSecondary();
-//        }
-//        ,'interact:move': function( pos ){
-//            updatePos();
-//        }
-//        ,'interact:release': function(){
-//            toggleToPrimary();
-//            
-//        }
-//    });
 }
 
 function switchMode(){

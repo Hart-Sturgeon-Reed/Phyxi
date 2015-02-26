@@ -1,4 +1,14 @@
 cursors = [];
+colors = {
+    white: '0xFFFFFF',
+    blue: '0x268ECB',
+    dkBlue: '0x14546f',
+    teal: '0xC8FDFE',
+    deepBlue: '0x114FFF',
+    orange: '0xFE9208',
+    lightOrange: '0xFED59B',
+    yellow: '0xFFC102'
+};
 function init(){
     console.log('We\'re in business!');
     
@@ -21,29 +31,20 @@ function init(){
     socket.on('disable effect', function(cursor){
         disableEffect(cursors[cursor]);
     });
+    socket.on('add controller', addUser);
     
     // track mouse position
-    mpos = {
-        x:0,
-        y:0
-    }
-//    $(document).mousemove(function(event){
-//        mpos.x = event.pageX;
-//        mpos.y = event.pageY;
-//    });
+    defaultCursor = addUser();
+    defaultCursor.disabled = false; // removes default cursor when a controller is connected
+    
+    $(document).mousemove(function(event){
+        if(!defaultCursor.disabled){
+            defaultCursor.position.x = event.pageX;
+            defaultCursor.position.y = event.pageY;
+        }
+    });
     
     particleBrush = Fireflies;
-    
-    colors = {
-        white: '0xFFFFFF',
-        blue: '0x268ECB',
-        dkBlue: '0x14546f',
-        teal: '0xC8FDFE',
-        deepBlue: '0x114FFF',
-        orange: '0xFE9208',
-        lightOrange: '0xFED59B',
-        yellow: '0xFFC102'
-    };
     
     // create pixi renderer
     renderer = Physics.renderer('pixi', {
@@ -57,12 +58,11 @@ function init(){
     //set up particle system
     setupParticles();
     
+    // setup default cursor interactions
+    setupInteractions(defaultCursor);
+    
     // create a physics world
     world = new BasicWorld();
-    
-    
-    // set physics interactions
-    //setupInteractions();
     
     //set interaction model (optional)
     Organism();
@@ -93,6 +93,17 @@ function init(){
         cursor.primary.position(cursor.position);
         cursor.secondary.position(cursor.position);
     });
+}
+
+function addUser(){
+    var cursor = new PIXI.Sprite(PIXI.Texture.fromImage('/assets/sphere.png'));
+    cursor.anchor = {x:0.5,y:0.5};
+    cursor.width = 16;
+    cursor.height = 16;
+    cursor.tint = colors.teal;
+    setupInteractions(cursor);
+    cursors.push(cursor);
+    return cursor;
 }
 
 function updateCursors(){

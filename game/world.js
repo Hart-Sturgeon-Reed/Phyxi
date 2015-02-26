@@ -68,6 +68,19 @@ function BasicWorld() {
         world.add(orbitalGrav);
     }
     
+    world.on({
+        'interact:poke': function( pos ){
+            toggleToSecondary(defaultCursor);
+        }
+        ,'interact:move': function( pos ){
+            updatePos(defaultCursor);
+        }
+        ,'interact:release': function(){
+           toggleToPrimary(defaultCursor);
+            
+        }
+    });
+    
 
     return world;
 }

@@ -54,7 +54,7 @@ function Particle(){
         this.sprite.visible = true;
         this.lifespan = particleLifespan;
         this.gravity = gravity;
-        this.setPosition(mpos.x + equalDist(particleSpread),mpos.y + equalDist(particleSpread));
+        //this.setPosition(mpos.x + equalDist(particleSpread),mpos.y + equalDist(particleSpread));
         this.vx = equalDist(particleSpeed);
         this.vy = equalDist(particleSpeed);
         

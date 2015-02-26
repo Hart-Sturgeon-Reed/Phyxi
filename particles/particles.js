@@ -61,15 +61,15 @@ function Minimal(){
 }
 
 function FireTrail() {
-    particleFlow = 24;
+    particleFlow = 20;
     particleSpeed = 1.6;
-    particleLifespan = 65;
+    particleLifespan = 35;
     particleOpacity = 0.86;
     particleTint = colors.orange;
     particleSprite = particleSprites.fire;
     particleSize = {
-        min: 4,
-        max: 14
+        min: 1,
+        max: 12
     }
 }
 

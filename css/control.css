@@ -66,9 +66,9 @@ body {
 }
 .button {
     position: fixed;
-    width: 180px;
-    height: 105px;
-    padding-top: 75px;
+    width: 30%;
+    height: 30%;
+    padding-top: 12%;
     font-family: 'Bitwise';
     font-size: 2em;
     text-align: center;

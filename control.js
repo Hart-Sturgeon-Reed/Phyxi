@@ -42,6 +42,10 @@ function init(){
     } else {
         console.log("accelerometer found");
         window.addEventListener("devicemotion", accelerometerUpdate, true);
+        
+        window.ondevicemotion = function(event) {  
+            accelerometerUpdate(event);
+        } 
     }
 }
 
