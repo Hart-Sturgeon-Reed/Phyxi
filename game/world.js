@@ -1,17 +1,3 @@
-//Constants
-GRV = {
-    zero: 0,
-    micro: 0.0001,
-    low:0.0004,
-    moon:0.0007,
-    normal:0.0014,
-    earth:0.0016,
-    heavy:0.0018,
-    lead:0.0024
-}
-
-gravityStrength = GRV.zero;
-
 function BasicWorld() {
     var world = Physics({
         timestep: 1000.0 / 180
@@ -20,14 +6,11 @@ function BasicWorld() {
     // add the renderer
     world.add( renderer );
     
-    //renderer.resize([stageWidth,stageHeight]);
     
     console.log('creating a Phyxi canvas '+stageWidth+'px wide & '+stageHeight+'px high');
     
     // setup physics behaviors
     var viewportBounds = Physics.aabb(0, 0, stageWidth, stageHeight); //for desktop 
-    
-//    var viewportBounds = Physics.aabb(-5, -5, 245, 395); //for mobile
     
     world.add(Physics.behavior('edge-collision-detection', {
         aabb: viewportBounds,

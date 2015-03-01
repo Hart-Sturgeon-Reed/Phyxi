@@ -1,6 +1,3 @@
-modes = [Organism,Blackhole,Fluid];
-mode = 0;
-
 function setupInteractions(cursor){
     cursor.primary = Physics.behavior('attractor', {
         order: 1.16,

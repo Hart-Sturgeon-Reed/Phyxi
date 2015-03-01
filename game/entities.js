@@ -1,7 +1,3 @@
-numPlanets = 160;
-
-restrictedColors = ['deepBlue','orange','lightOrange','yellow'];
-
 function addEntities(){
     for (var i=0;i<numPlanets;i++){
         new Planet();
@@ -23,21 +19,21 @@ function Planet(){
         radius: scale,
         restitution: 0.9,
         mass: scale/8,
-//        styles: {
-//            strokeStyle: colors.darkRed
-//            ,fillStyle: colors.blue
-//            ,lineWidth: 1
-//        }
+        styles: {
+            strokeStyle: colors.darkRed
+            ,fillStyle: colors.blue
+            ,lineWidth: 1
+        }
     });
     
-    this.body.view = new PIXI.Sprite(PIXI.Texture.fromImage('/assets/sphere.png'));
+    this.body.view = new PIXI.Sprite(PIXI.Texture.fromImage('/assets/sphereMd.png'));
     this.sprite = this.body.view;
     this.sprite.anchor = {
         x:0.5,
         y:0.5
     };
-    this.sprite.width = scale * 2.27272727;
-    this.sprite.height = scale * 2.27;
+    this.sprite.width = scale * 1.9;
+    this.sprite.height = scale * 1.9;
     this.sprite.tint = getRandomProperty(colors,restrictedColors);
     
     world.add(this.body);

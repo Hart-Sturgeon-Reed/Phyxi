@@ -1,14 +1,3 @@
-cursors = [];
-colors = {
-    white: '0xFFFFFF',
-    blue: '0x268ECB',
-    dkBlue: '0x14546f',
-    teal: '0xC8FDFE',
-    deepBlue: '0x114FFF',
-    orange: '0xFE9208',
-    lightOrange: '0xFED59B',
-    yellow: '0xFFC102'
-};
 function init(){
     console.log('We\'re in business!');
     
@@ -45,8 +34,6 @@ function init(){
         }
     });
     
-    particleBrush = Fireflies;
-    
     // create pixi renderer
     renderer = Physics.renderer('pixi', {
         autoResize: true,
@@ -57,6 +44,7 @@ function init(){
     stage = new TestStage();
 
     //set up particle system
+    particleBrush = Fireflies;
     setupParticles();
     
     // setup default cursor interactions
@@ -65,8 +53,10 @@ function init(){
     // create a physics world
     world = new BasicWorld();
     
-    //set interaction model (optional)
-    Fluid();
+    //set up interaction models
+    modes = [Organism,Blackhole,Fluid];
+    mode = 0;
+    modes[mode]();
     
     // add physics entities
     addEntities();
