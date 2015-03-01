@@ -26,7 +26,7 @@ function Planet(){
         }
     });
     
-    this.body.view = new PIXI.Sprite(PIXI.Texture.fromImage('/assets/sphereMd.png'));
+    this.body.view = new PIXI.Sprite(PIXI.Texture.fromImage('/assets/wisp.png'));
     this.sprite = this.body.view;
     this.sprite.anchor = {
         x:0.5,
@@ -34,7 +34,7 @@ function Planet(){
     };
     this.sprite.width = scale * 1.9;
     this.sprite.height = scale * 1.9;
-    this.sprite.tint = getRandomProperty(colors,restrictedColors);
+    this.sprite.tint = getRandomProperty(entityColors);//getRandomProperty(colors,restrictedColors);
     
     world.add(this.body);
     stage.ents.addChild(this.sprite);

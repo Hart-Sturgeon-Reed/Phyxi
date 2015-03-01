@@ -22,10 +22,10 @@ colors = {
 
 //Setup
 cursors = [];
-numPlanets = 160;
+numPlanets = 120; // 160 is about max with decent performance
+paused = false;
 
 restrictedColors = ['deepBlue','orange','lightOrange','yellow'];
-
-
+entityColors = [colors.blue,colors.dkBlue,colors.white];
 
 gravityStrength = GRV.zero;

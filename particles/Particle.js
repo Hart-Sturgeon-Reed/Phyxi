@@ -6,7 +6,7 @@ function Particle(){
         y:0.5
     };
     this.new = true;
-    this.sprite.blendMode = PIXI.blendModes.ADD;
+    this.sprite.blendMode = PIXI.blendModes.SCREEN; //less odd behavior than ADD when opacity is less than 1
     this.sprite.tint = particleTint;
     var scale = range(particleSize.min,particleSize.max);
     this.sprite.width = scale;

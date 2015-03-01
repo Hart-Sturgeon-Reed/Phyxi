@@ -71,7 +71,7 @@ function FireTrail() {
     particleSprite = particleSprites.fire;
     particleSize = {
         min: 1,
-        max: 12
+        max: 14
     }
 }
 

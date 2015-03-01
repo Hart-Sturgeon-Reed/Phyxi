@@ -33,6 +33,16 @@ function init(){
             defaultCursor.position.y = event.pageY;
         }
     });
+    $(document).keyup(function(event){
+        switch(event.which){
+            case 77: //m
+                switchMode();
+                break;
+            case 80: //p
+                togglePause();
+                break;
+        }
+    });
     
     // create pixi renderer
     renderer = Physics.renderer('pixi', {
@@ -44,7 +54,7 @@ function init(){
     stage = new TestStage();
 
     //set up particle system
-    particleBrush = Fireflies;
+    particleBrush = Sparks;
     setupParticles();
     
     // setup default cursor interactions
@@ -71,7 +81,7 @@ function init(){
     // start simulation and rendering
     Physics.util.ticker.on(function(time){
         // custom physics and state checking should go here
-        world.step(time);
+        if(!paused){world.step(time);}
     });
     Physics.util.ticker.start();
     
@@ -90,7 +100,7 @@ function init(){
 }
 
 function addUser(socketNum){
-    var cursor = new PIXI.Sprite(PIXI.Texture.fromImage('/assets/sphere.png'));
+    var cursor = new PIXI.Sprite(PIXI.Texture.fromImage('/assets/sphereLt.png'));
     cursor.anchor = {x:0.5,y:0.5};
     cursor.width = 16;
     cursor.height = 16;
@@ -123,4 +133,7 @@ function updateCursors(){
     for (cursor of cursors){
         updatePos();
     }
+}
+function togglePause(){
+    paused = !paused;
 }
