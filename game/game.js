@@ -3,14 +3,14 @@ function setupGame(){
     renderer = Physics.renderer('pixi', {
         autoResize: true,
         el: 'game', // The DOM element to append the stage to
-        meta: true // Turns debug info on/off
+        meta: false // Turns debug info on/off
     });
     
     // set up stage layers
     stage = new TestStage();
     
     // set up interaction models
-    modes = [Organism,Blackhole,Fluid];
+    modes = [Firefly,Organism,Blackhole,Fluid];
     mode = 0;
     model = {
         primary: Physics.behavior('attractor', {
@@ -53,8 +53,13 @@ function setupGame(){
     
     // start simulation and rendering
     Physics.util.ticker.on(function(time){
-        // custom physics and state checking should go here
-        if(!paused){world.step(time);}
+        if(!paused){
+            // custom physics and state checking should go here
+            for (var ent of entities){
+                ent.update();
+            }
+            world.step(time);
+        }
     });
     Physics.util.ticker.start();
 }

@@ -32,7 +32,12 @@ brushes = [];
 numPlanets = 124; // 160 is about max with decent performance
 paused = false;
 
-restrictedColors = ['deepBlue','orange','lightOrange','yellow'];
-entityColors = [colors.blue,colors.dkBlue,colors.white];
+restrictedColors = ['deepBlue','orange','ltOrange','yellow'];
+entityColors = [colors.ltOrange];// Rain [colors.blue,colors.dkBlue,colors.white];
+entitySprite = '/assets/wispLt.png';
+entitySize = {
+    max: 28,
+    min: 6
+}
 
 gravityStrength = GRV.zero;

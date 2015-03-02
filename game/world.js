@@ -30,8 +30,8 @@ function BasicWorld() {
         min: 50
     });
     world.add(orbitalGrav);
-    
-    world.add(Physics.behavior('body-impulse-response') );
+    collider = Physics.behavior('body-impulse-response');
+    world.add( collider );
     world.add(Physics.behavior('body-collision-detection') );
     world.add(Physics.behavior('sweep-prune') );
     world.add(Physics.behavior('interactive', { el: renderer.container }));
