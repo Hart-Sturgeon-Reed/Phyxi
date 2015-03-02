@@ -11,6 +11,7 @@ GRV = {
 }
 colors = {
     white: '0xFFFFFF',
+    black: '0x000000',
     blue: '0x268ECB',
     dkBlue: '0x14546f',
     teal: '0xC8FDFE',
@@ -22,6 +23,7 @@ colors = {
 
 //Setup
 cursors = [];
+brushes = [];
 numPlanets = 120; // 160 is about max with decent performance
 paused = false;
 

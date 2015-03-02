@@ -23,9 +23,6 @@ function init(){
     socket.on('add controller', addUser);
     socket.on('controller disconnected', removeUser);
     
-    // track mouse position
-    defaultCursor = addUser();
-    defaultCursor.num = 0;
     
     $(document).mousemove(function(event){
         if(defaultCursor.enabled){
@@ -53,9 +50,13 @@ function init(){
     
     stage = new TestStage();
 
-    //set up particle system
-    particleBrush = Sparks;
+    //set up default particle system
+    particleBrush = FireTrail;
+    defaultCursor = addUser();
+    defaultCursor.num = 0;
+    
     setupParticles();
+    
     
     // setup default cursor interactions
     setupInteractions(defaultCursor);
@@ -88,8 +89,8 @@ function init(){
     socket.on('accel', function(accel, socketNum){
 //        console.log('controller at socket '+socketNum+':');
 //        console.dir(accel);
-        defaultCursor.enabled = false;
-        disableEffect(defaultCursor);
+//        defaultCursor.enabled = false;
+//        disableEffect(defaultCursor);
         var cursor = getCursor(socketNum);
         cursor.position.x = stageWidth/2 + (accel.xTilt*(stageWidth/1.2));
         cursor.position.y = stageHeight/2 - (accel.yTilt*(stageHeight/1.2));
@@ -107,6 +108,9 @@ function addUser(socketNum){
     cursor.tint = colors.teal;
     cursor.num = socketNum;
     cursor.enabled = true;
+    cursor.brush = new particleBrush();
+    cursor.pool = new ParticlePool(cursor.brush, 200, 60);
+    
     setupInteractions(cursor);
     cursors.push(cursor);
     return cursor;

@@ -26,12 +26,12 @@ function switchMode(){
 function disableEffect(cursor){
     world.remove( cursor.primary );
     world.remove( cursor.secondary );
+    cursor.brush.particleTint = cursor.brush.primary;
 }
 
 function disableAllEffects(){
-    for (cursor of cursors){
-        world.remove( cursor.primary );
-        world.remove( cursor.secondary );
+    for (var cursor of cursors){
+        disableEffect(cursor);
     }
 }
 
@@ -39,6 +39,7 @@ function toggleToPrimary(cursor){
     world.wakeUpAll();
     world.add( cursor.primary );
     world.remove( cursor.secondary );
+    cursor.brush.particleTint = cursor.brush.primary;
 }
 function toggleToSecondary(cursor){
     world.wakeUpAll();
@@ -46,6 +47,7 @@ function toggleToSecondary(cursor){
     cursor.secondary.position( cursor.position );
     world.remove( cursor.primary );
     world.add( cursor.secondary );
+    cursor.brush.particleTint = cursor.brush.secondary;
 }
 function updatePos(cursor){
     cursor.primary.position( cursor.position );

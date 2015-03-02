@@ -1,32 +1,34 @@
-function Particle(){
+function Particle(system,pool){
     var self = this;
-    this.sprite = new PIXI.Sprite(particleSprite);
+    var system = system;
+    this.pool = pool;
+    this.sprite = new PIXI.Sprite(system.particleSprite);
     this.sprite.anchor = {
-        x:0.5,
-        y:0.5
+        x: 0.5,
+        y: 0.5
     };
     this.new = true;
     this.sprite.blendMode = PIXI.blendModes.SCREEN; //less odd behavior than ADD when opacity is less than 1
-    this.sprite.tint = particleTint;
-    var scale = range(particleSize.min,particleSize.max);
+    this.sprite.tint = system.particleTint;
+    var scale = range(system.particleSize.min,system.particleSize.max);
     this.sprite.width = scale;
     this.sprite.height = scale;
-    this.opacity = particleOpacity;
+    this.opacity = system.particleOpacity;
     this.sprite.alpha = this.opacity;
     
-    this.currentSprite = particleSprite;
+    this.currentSprite = system.particleSprite;
     
-    this.lifespan = particleLifespan;
-    this.gravity = gravity;
+    this.lifespan = system.particleLifespan;
+    this.gravity = system.gravity;
     this.age = 0;
     
-    this.vx = equalDist(particleSpeed);
-    this.vy = equalDist(particleSpeed);
+    this.vx = equalDist(system.particleSpeed);
+    this.vy = equalDist(system.particleSpeed);
     
     this.generateSprite = function(){
-        this.sprite.setTexture(particleSprite);
-        this.sprite.tint = particleTint;
-        this.currentSprite = particleSprite;
+        this.sprite.setTexture(system.particleSprite);
+        this.sprite.tint = system.particleTint;
+        this.currentSprite = system.particleSprite;
     };
     this.update = function(){
         if(this.age>this.lifespan){
@@ -48,15 +50,15 @@ function Particle(){
         this.dead = false;
     };
     this.init = function(){
-        if(this.currentSprite != particleSprite || this.sprite.tint != particleTint){
+        if(this.currentSprite != system.particleSprite || this.sprite.tint != system.particleTint){
             this.generateSprite();
         }
         this.sprite.visible = true;
-        this.lifespan = particleLifespan;
-        this.gravity = gravity;
+        this.lifespan = system.particleLifespan;
+        this.gravity = system.gravity;
         //this.setPosition(mpos.x + equalDist(particleSpread),mpos.y + equalDist(particleSpread));
-        this.vx = equalDist(particleSpeed);
-        this.vy = equalDist(particleSpeed);
+        this.vx = equalDist(system.particleSpeed);
+        this.vy = equalDist(system.particleSpeed);
         
     };
     this.setPosition = function(xPos,yPos){
@@ -64,11 +66,11 @@ function Particle(){
     }
 }
 
-ParticlePool = function(startingSize,batchSize){
+ParticlePool = function(particleSystem,startingSize,batchSize){
     ObjectPool.call(this,startingSize,batchSize);
     this.addObject = function(){
         //console.log("the pool contains "+(this.numObjects++)+" objects");
-        var p = new Particle();
+        var p = new Particle(particleSystem,this);
         this.pool.push(p);
     }
 }
