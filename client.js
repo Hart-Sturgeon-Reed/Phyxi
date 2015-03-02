@@ -41,56 +41,12 @@ function init(){
         }
     });
     
-    // create pixi renderer
-    renderer = Physics.renderer('pixi', {
-        autoResize: true,
-        el: 'game', // The DOM element to append the stage to
-        meta: false // Turns debug info on/off
-    });
-    
-    stage = new TestStage();
-
-    //set up default particle system
-    particleBrush = FireTrail;
-    defaultCursor = addUser();
-    defaultCursor.num = 0;
-    
-    setupParticles();
-    
-    
-    // setup default cursor interactions
-    setupInteractions(defaultCursor);
-    
-    // create a physics world
-    world = new BasicWorld();
-    
-    //set up interaction models
-    modes = [Organism,Blackhole,Fluid];
-    mode = 0;
-    modes[mode]();
-    
-    // add physics entities
-    addEntities();
-    
-    // render on each step
-    world.on('step', function(){
-        //updateCursor();
-        updateParticles();
-        world.render();
-    });
-    
-    // start simulation and rendering
-    Physics.util.ticker.on(function(time){
-        // custom physics and state checking should go here
-        if(!paused){world.step(time);}
-    });
-    Physics.util.ticker.start();
+    //Set up the physics world, particle system etc.
+    setupGame();
     
     socket.on('accel', function(accel, socketNum){
 //        console.log('controller at socket '+socketNum+':');
 //        console.dir(accel);
-//        defaultCursor.enabled = false;
-//        disableEffect(defaultCursor);
         var cursor = getCursor(socketNum);
         cursor.position.x = stageWidth/2 + (accel.xTilt*(stageWidth/1.2));
         cursor.position.y = stageHeight/2 - (accel.yTilt*(stageHeight/1.2));
@@ -100,7 +56,7 @@ function init(){
     });
 }
 
-function addUser(socketNum){
+function addUser(socketNum, isDefault){
     var cursor = new PIXI.Sprite(PIXI.Texture.fromImage('/assets/sphereLt.png'));
     cursor.anchor = {x:0.5,y:0.5};
     cursor.width = 16;
@@ -113,6 +69,11 @@ function addUser(socketNum){
     
     setupInteractions(cursor);
     cursors.push(cursor);
+    
+    if(!isDefault){
+        defaultCursor.enabled = false;
+        disableEffect(defaultCursor);
+    }
     return cursor;
 }
 
@@ -121,7 +82,7 @@ function removeUser(socketNum){
     dead.enabled = false;
     disableEffect(dead);
     console.log('removing controller '+socketNum);
-    console.dir(dead);
+    //console.dir(dead);
 }
 
 function getCursor(socketNum){
@@ -133,11 +94,6 @@ function getCursor(socketNum){
     return null;
 }
 
-function updateCursors(){
-    for (cursor of cursors){
-        updatePos();
-    }
-}
 function togglePause(){
     paused = !paused;
 }

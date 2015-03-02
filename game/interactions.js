@@ -36,18 +36,22 @@ function disableAllEffects(){
 }
 
 function toggleToPrimary(cursor){
-    world.wakeUpAll();
-    world.add( cursor.primary );
-    world.remove( cursor.secondary );
-    cursor.brush.particleTint = cursor.brush.primary;
+    if(cursor.enabled){
+        world.wakeUpAll();
+        world.add( cursor.primary );
+        world.remove( cursor.secondary );
+        cursor.brush.particleTint = cursor.brush.primary;
+    }
 }
 function toggleToSecondary(cursor){
-    world.wakeUpAll();
-    cursor.primary.position( cursor.position );
-    cursor.secondary.position( cursor.position );
-    world.remove( cursor.primary );
-    world.add( cursor.secondary );
-    cursor.brush.particleTint = cursor.brush.secondary;
+    if(cursor.enabled){
+        world.wakeUpAll();
+        cursor.primary.position( cursor.position );
+        cursor.secondary.position( cursor.position );
+        world.remove( cursor.primary );
+        world.add( cursor.secondary );
+        cursor.brush.particleTint = cursor.brush.secondary;
+    }
 }
 function updatePos(cursor){
     cursor.primary.position( cursor.position );
