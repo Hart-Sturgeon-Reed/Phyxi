@@ -8,7 +8,7 @@ function addEntities(){
 
 function Planet(){
     var self = this;
-    var max = 24;
+    var max = 28;
     var min = 6;
     var scale = (Math.random()*(max-min))+min;
     this.body = Physics.body('circle', {

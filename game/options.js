@@ -17,7 +17,7 @@ colors = {
     orange: '0xFE9208',
     ltOrange: '0xFED59B',
     yellow: '0xFFC102',
-    green: '0x008126',
+    green: '0x009E2E',
     teal: '0xC8FDFE',
     blue: '0x268ECB',
     deepBlue: '0x114FFF',
@@ -29,7 +29,7 @@ colors = {
 //Setup
 cursors = [];
 brushes = [];
-numPlanets = 120; // 160 is about max with decent performance
+numPlanets = 124; // 160 is about max with decent performance
 paused = false;
 
 restrictedColors = ['deepBlue','orange','lightOrange','yellow'];

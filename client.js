@@ -25,6 +25,15 @@ function init(){
     socket.on('add controller', addUser);
     socket.on('controller disconnected', removeUser);
     
+    socket.on('accel', function(accel, socketNum){
+        //console.log('controller at socket '+socketNum+':');
+        //console.dir(accel);
+        var cursor = getCursor(socketNum);
+        if(cursor!=null){
+            cursor.filterMotion.call(cursor,accel);
+        }
+    });
+    
     
     $(document).on("mousemove", function(event){
         if(defaultCursor.enabled){
@@ -56,19 +65,6 @@ function init(){
     
     //Set up the physics world, particle system etc.
     setupGame();
-    
-    socket.on('accel', function(accel, socketNum){
-//        console.log('controller at socket '+socketNum+':');
-//        console.dir(accel);
-        var cursor = getCursor(socketNum);
-        if(cursor!=null){
-            cursor.position.x = stageWidth/2 + (accel.xTilt*(stageWidth/1.2));
-            cursor.position.y = stageHeight/2 - (accel.yTilt*(stageHeight/1.2));
-
-            cursor.primary.position(cursor.position);
-            cursor.secondary.position(cursor.position);
-        }
-    });
 }
 
 function addUser(socketNum, isDefault){

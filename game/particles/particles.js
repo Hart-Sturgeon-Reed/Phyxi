@@ -116,7 +116,7 @@ function Sparks() {
     this.particleOpacity = 0.7;
     this.particleTint = colors.teal;
     this.primary = colors.teal;
-    this.secondary = colors.deepBlue;
+    this.secondary = colors.dkBlue;
     this.particleSprite = particleSprites.circle;
     this.particleSize = {
         min: 8,
