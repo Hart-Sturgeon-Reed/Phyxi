@@ -3,7 +3,7 @@ function setupGame(){
     renderer = Physics.renderer('pixi', {
         autoResize: true,
         el: 'game', // The DOM element to append the stage to
-        meta: false // Turns debug info on/off
+        meta: true // Turns debug info on/off
     });
     
     // set up stage layers
@@ -29,7 +29,8 @@ function setupGame(){
     };
 
     // set up default particle system
-    particleBrush = FireTrail;
+    particleBrush = Minimal;
+    userBrushes = [Minimal,Fireflies,Ghostflies,Sparks,FireTrail];
     defaultCursor = addUser(0,true);
     
     setupParticles();

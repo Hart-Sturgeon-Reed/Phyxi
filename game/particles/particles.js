@@ -82,7 +82,24 @@ function Fireflies() {
     this.particleOpacity = 1;
     this.particleTint = colors.yellow;
     this.primary = colors.yellow;
-    this.secondary = colors.orange;
+    this.secondary = colors.red;
+    this.particleSprite = particleSprites.circle;
+    this.particleSize = {
+        min: 8,
+        max: 16
+    }
+}
+
+function Ghostflies() {
+    this.gravity = 0.04;
+    this.particleFlow = 1;
+    this.particleSpeed = 1.6;
+    this.particleSpread = 60;
+    this.particleLifespan = 65;
+    this.particleOpacity = 1;
+    this.particleTint = colors.green;
+    this.primary = colors.green;
+    this.secondary = colors.indigo;
     this.particleSprite = particleSprites.circle;
     this.particleSize = {
         min: 8,

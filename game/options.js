@@ -12,13 +12,18 @@ GRV = {
 colors = {
     white: '0xFFFFFF',
     black: '0x000000',
-    blue: '0x268ECB',
-    dkBlue: '0x14546f',
-    teal: '0xC8FDFE',
-    deepBlue: '0x114FFF',
+
+    red: '0xFE2506',
     orange: '0xFE9208',
-    lightOrange: '0xFED59B',
-    yellow: '0xFFC102'
+    ltOrange: '0xFED59B',
+    yellow: '0xFFC102',
+    green: '0x008126',
+    teal: '0xC8FDFE',
+    blue: '0x268ECB',
+    deepBlue: '0x114FFF',
+    dkBlue: '0x14546f',
+    indigo: '0x2F2F66',
+    purple: '0x6B54A2'
 };
 
 //Setup

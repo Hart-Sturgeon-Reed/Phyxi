@@ -1,12 +1,17 @@
-function Cursor(socketNum){
+function Cursor(socketNum,brush){
     var cursor = new PIXI.Sprite(PIXI.Texture.fromImage('/assets/sphereLt.png'));
+    var size = 18;
     cursor.anchor = {x:0.5,y:0.5};
-    cursor.width = 16;
-    cursor.height = 16;
-    cursor.tint = colors.teal;
+    cursor.width = size;
+    cursor.height = size;
+    cursor.tint = colors.white;
     cursor.num = socketNum;
     cursor.enabled = true;
-    cursor.brush = new particleBrush();
+    if(brush==null){
+        cursor.brush = new particleBrush();
+    }else{
+        cursor.brush = new brush();
+    }
     cursor.pool = new ParticlePool(cursor.brush, 200, 60);
     
     
@@ -15,7 +20,8 @@ function Cursor(socketNum){
     cursor.secondary = model.secondary;
     
     
-    cursor.disableEffect = function(){
+    cursor.disableEffect = function(hideCursor){
+        cursor.enabled = !hideCursor;
         world.remove( cursor.primary );
         world.remove( cursor.secondary );
         cursor.brush.particleTint = cursor.brush.primary;

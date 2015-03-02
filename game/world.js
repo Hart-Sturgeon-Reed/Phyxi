@@ -54,6 +54,7 @@ function BasicWorld() {
     world.on({
         'interact:poke': function( pos ){
             defaultCursor.enabled = true;
+            defaultCursor.updatePos();
             defaultCursor.toggleToSecondary();
         }
         ,'interact:move': function( pos ){
