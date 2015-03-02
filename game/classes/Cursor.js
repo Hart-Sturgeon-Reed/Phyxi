@@ -73,8 +73,8 @@ function Pointer(accel){
     this.updatePos();
 }
 function Smooth(accel){
-    this.position.x += (accel.xTilt*(14));
-    this.position.y -= (accel.yTilt*(14));
+    this.position.x += (accel.xTilt*(10));
+    this.position.y -= (accel.yTilt*(10));
     this.checkBounds();
     this.updatePos();
 }

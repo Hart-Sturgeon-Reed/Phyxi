@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var osc = require('osc-min');
+var udp = require('dgram');
 
 var clientNum = 1;
 var controllerNum = 1;
@@ -18,6 +20,33 @@ app.get('/Control/', function(req, res){
 app.get('/', function(req, res){
     res.sendFile(__dirname+'/client.html');
 });
+
+function setupOSC(){
+    oscSocket = udp.createSocket("udp4", function(msg, rinfo) {
+      var error;
+      try {
+        return console.log(osc.fromBuffer(msg));
+      } catch (_error) {
+        error = _error;
+        return console.log("invalid OSC packet");
+      }
+    });
+
+    oscSocket.bind(3000);
+
+    sendHeartbeat = function() {
+      var buf;
+      buf = osc.toBuffer({
+        address: "/heartbeat",
+        args: [
+          1.2, 2.0, 1.6, 17
+        ]
+      });
+      return oscSocket.send(buf, 0, buf.length, 3000, "localhost"); //data, ?, dataSize, port, address
+    };
+}
+
+setupOSC();
 
 io.on('connection', function(socket){
     console.log('client '+clientNum+' connected');
