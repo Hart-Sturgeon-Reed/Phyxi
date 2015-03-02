@@ -9,16 +9,16 @@ function init(){
     });
     
     socket.on('primary click', function(socketNum){
-        toggleToPrimary(getCursor(socketNum));
+        (getCursor(socketNum)).toggleToPrimary();
     });
     socket.on('secondary click', function(socketNum){
-        toggleToSecondary(getCursor(socketNum));
+        (getCursor(socketNum)).toggleToSecondary();
     });
     socket.on('switch mode', function(){
         switchMode();
     });
     socket.on('disable effect', function(socketNum){
-        disableEffect(getCursor(socketNum));
+        (getCursor(socketNum)).disableEffect();
     });
     socket.on('add controller', addUser);
     socket.on('controller disconnected', removeUser);
@@ -57,17 +57,7 @@ function init(){
 }
 
 function addUser(socketNum, isDefault){
-    var cursor = new PIXI.Sprite(PIXI.Texture.fromImage('/assets/sphereLt.png'));
-    cursor.anchor = {x:0.5,y:0.5};
-    cursor.width = 16;
-    cursor.height = 16;
-    cursor.tint = colors.teal;
-    cursor.num = socketNum;
-    cursor.enabled = true;
-    cursor.brush = new particleBrush();
-    cursor.pool = new ParticlePool(cursor.brush, 200, 60);
-    
-    setupInteractions(cursor);
+    var cursor = new Cursor(socketNum);
     cursors.push(cursor);
     
     if(!isDefault){
@@ -92,6 +82,12 @@ function getCursor(socketNum){
         }
     }
     return null;
+}
+
+function disableAllEffects(){
+    for (var cursor of cursors){
+        cursor.disableEffect();
+    }
 }
 
 function togglePause(){

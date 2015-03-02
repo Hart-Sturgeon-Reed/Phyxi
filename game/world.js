@@ -54,17 +54,16 @@ function BasicWorld() {
     world.on({
         'interact:poke': function( pos ){
             defaultCursor.enabled = true;
-            toggleToSecondary(defaultCursor);
+            defaultCursor.toggleToSecondary();
         }
         ,'interact:move': function( pos ){
-            updatePos(defaultCursor);
+            defaultCursor.updatePos();
         }
         ,'interact:release': function(){
-           toggleToPrimary(defaultCursor);
+           defaultCursor.toggleToPrimary();
             
         }
     });
-    
 
     return world;
 }
