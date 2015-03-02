@@ -66,6 +66,18 @@ io.on('connection', function(socket){
                 game.emit('disable effect',controller.num);
             }
         });
+        socket.on('recolor', function(){
+            console.log('recoloring entities');
+            if(game){
+                game.emit('recolor');
+            }
+        });
+        socket.on('pause', function(){
+            console.log('toggling pause');
+            if(game){
+                game.emit('pause');
+            }
+        });
         socket.on("disconnect", function(){
             if(game){
                 game.emit('controller disconnected', socket.num);

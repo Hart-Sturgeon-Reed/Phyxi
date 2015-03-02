@@ -25,7 +25,7 @@ function Cursor(socketNum,brush){
     
     
     cursor.disableEffect = function(hideCursor){
-        cursor.enabled = !hideCursor;
+        if(hideCursor){cursor.enabled = false;}
         world.remove( cursor.primary );
         world.remove( cursor.secondary );
         cursor.brush.particleTint = cursor.brush.primary;

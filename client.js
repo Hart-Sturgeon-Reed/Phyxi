@@ -3,6 +3,8 @@ function init(){
     
     userNum = 0;
     
+    prevBackground = "canvas";
+    
     // setup websocket
     socket = io();
     socket.on('start up',function(id) {
@@ -18,6 +20,12 @@ function init(){
     });
     socket.on('switch mode', function(){
         switchMode();
+    });
+    socket.on('recolor', function(){
+        recolorEntities();
+    });
+    socket.on('pause', function(){
+        togglePause();
     });
     socket.on('disable effect', function(socketNum){
         (getCursor(socketNum)).disableEffect(false);
@@ -108,6 +116,14 @@ function disableAllEffects(){
     for (var cursor of cursors){
         cursor.disableEffect();
     }
+}
+
+function setBackground(newBackground){
+    $('#back').addClass(newBackground);
+    if(prevBackground != null){
+        $('#back').removeClass(prevBackground);
+    }
+    prevBackground = newBackground;
 }
 
 function togglePause(){

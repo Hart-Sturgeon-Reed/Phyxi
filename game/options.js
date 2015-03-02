@@ -29,15 +29,25 @@ colors = {
 //Setup
 cursors = [];
 brushes = [];
+entities = [];
 numPlanets = 124; // 160 is about max with decent performance
 paused = false;
 
 restrictedColors = ['deepBlue','orange','ltOrange','yellow'];
 entityColors = [colors.ltOrange];// Rain [colors.blue,colors.dkBlue,colors.white];
-entitySprite = '/assets/wispLt.png';
+entitySprite = null;
 entitySize = {
     max: 28,
     min: 6
 }
 
 gravityStrength = GRV.zero;
+
+PIXI.Texture.fromImage('/assets/planet.png');
+PIXI.Texture.fromImage('/assets/sphereMd.png');
+PIXI.Texture.fromImage('/assets/sphereDk.png');
+PIXI.Texture.fromImage('/assets/wispLt.png');
+PIXI.Texture.fromImage('/assets/bubbleLt.png');
+PIXI.Texture.fromImage('/assets/bubbleMd.png');
+PIXI.Texture.fromImage('/assets/bubbleDk.png');
+PIXI.Texture.fromImage('/assets/wisp.png');

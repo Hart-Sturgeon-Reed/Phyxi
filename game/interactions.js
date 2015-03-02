@@ -11,17 +11,28 @@ function switchMode(){
     }
 }
 
+function setCollider(collide){
+    if (collide && collider == null){
+        collider = Physics.behavior('body-impulse-response');
+        world.add(collider);
+    } else if (!collide && collider != null){
+        world.remove(collider);
+        collider = null;
+    }
+}
+
 function Blackhole(){
     console.log('Blackhole mode');
     world.warp(0.20);
     world.changeGrav(GRV.zero);
     
-    entityColors = [colors.blue,colors.green,colors.red];
+    setBackground('stars');
+    setEntitySprite('/assets/planet.png');
+    setEntityColors([colors.blue,colors.green,colors.dkBlue]);
+    setEntitySpriteScale(1.9);
+    setEntityVel({x:0,y:0});
     
-    if (collider == null){
-        collider = Physics.behavior('body-impulse-response');
-        world.add(collider);
-    }
+    setCollider(true);
     
     model.primary = Physics.behavior('attractor', {
             order: 1.16,
@@ -38,16 +49,16 @@ function Blackhole(){
     });
 }
 
-function Fluid(){
+function Snow(){
     console.log('Fluid mode');
-    world.warp(1);
+    world.warp(0.6);
     world.changeGrav(GRV.micro);
-    entityColors = [colors.blue,colors.dkBlue,colors.white];
+    setEntitySprite('/assets/wisp.png');
+    setEntityColors([colors.white]);
+    setCollider(false);
+    setEntitySpriteScale(0.6);
     
-    if (collider == null){
-        collider = Physics.behavior('body-impulse-response');
-        world.add(collider);
-    }
+    setBackground('swirl');
     
     model.secondary = Physics.behavior('attractor', {
         order: 1.2,
@@ -65,19 +76,16 @@ function Fluid(){
 }
 
 function Firefly(){
-    console.log('Rain mode');
-    world.warp(0.2);
+    console.log('Firefly mode');
+    world.warp(0.18);
     world.changeGrav(GRV.micro);
-    entityColors = [colors.ltOrange]
     
-    if (collider != null){
-        world.remove(collider);
-        collider = null;
-    }
-    entitySize = {
-        max: 40,
-        min: 20
-    }
+    setBackground('sunset');
+    
+    setCollider(false);
+    setEntitySprite('/assets/wispLt.png');
+    setEntityColors([colors.ltOrange]);
+    setEntitySpriteScale(2.6);
     
     model.primary = Physics.behavior('attractor', {
         order: 1.2,
@@ -104,10 +112,12 @@ function Organism(){
         min: 20
     }));
     
-    if (collider == null){
-        collider = Physics.behavior('body-impulse-response');
-        world.add(collider);
-    }
+    setBackground('dark');
+    setEntitySpriteScale(1.9);
+    setEntityColors([colors.orange,colors.white,colors.ltOrange]);
+    setEntitySprite('/assets/bubbleMd.png');
+    
+    setCollider(true);
     
     model.primary = Physics.behavior('attractor', {
         order: 1.16,

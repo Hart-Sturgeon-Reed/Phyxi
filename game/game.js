@@ -10,7 +10,7 @@ function setupGame(){
     stage = new TestStage();
     
     // set up interaction models
-    modes = [Firefly,Organism,Blackhole,Fluid];
+    modes = [Firefly,Organism,Blackhole,Snow];
     mode = 0;
     model = {
         primary: Physics.behavior('attractor', {
