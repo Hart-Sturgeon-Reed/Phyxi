@@ -1,4 +1,4 @@
-function Cursor(socketNum,brush){
+function Cursor(socketNum,brush,filter){
     var cursor = new PIXI.Sprite(PIXI.Texture.fromImage('/assets/sphereLt.png'));
     var size = 18;
     cursor.anchor = {x:0.5,y:0.5};
@@ -9,7 +9,7 @@ function Cursor(socketNum,brush){
     cursor.height = size;
     cursor.tint = colors.white;
     cursor.num = socketNum;
-    cursor.filterMotion = Smooth;
+    cursor.filterMotion = filter;
     cursor.enabled = true;
     if(brush==null){
         cursor.brush = new particleBrush();
@@ -75,6 +75,18 @@ function Pointer(accel){
 function Smooth(accel){
     this.position.x += (accel.xTilt*(10));
     this.position.y -= (accel.yTilt*(10));
+    this.checkBounds();
+    this.updatePos();
+}
+function Kinect(data){
+    var kinectSpeed = 60;
+    this.position.x += (data.x*(kinectSpeed));
+    this.position.y -= (data.y*(kinectSpeed));
+    if(data.z<0.5){
+        this.toggleToSecondary();
+    }else{
+        this.toggleToPrimary();
+    }
     this.checkBounds();
     this.updatePos();
 }

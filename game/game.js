@@ -31,7 +31,7 @@ function setupGame(){
     // set up default particle system
     particleBrush = Minimal;
     userBrushes = [Minimal,Fireflies,Ghostflies,Sparks,FireTrail];
-    defaultCursor = addUser(0,true);
+    defaultCursor = addUser(0,true,Pointer);
     
     setupParticles();
     

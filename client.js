@@ -30,7 +30,9 @@ function init(){
     socket.on('disable effect', function(socketNum){
         (getCursor(socketNum)).disableEffect(false);
     });
-    socket.on('add controller', addUser);
+    socket.on('add controller', function(socketNum){
+        addUser(socketNum,false,Smooth);
+    });
     socket.on('controller disconnected', removeUser);
     
     socket.on('accel', function(accel, socketNum){
@@ -39,6 +41,29 @@ function init(){
         var cursor = getCursor(socketNum);
         if(cursor!=null){
             cursor.filterMotion.call(cursor,accel);
+        }
+    });
+    
+    socket.on('osc', function(msg){
+        var address = msg.address;
+        var userId = msg.args[0].value;
+        console.log('OSC message recieved from user '+userId+', kind is '+address);
+        
+        if(address=="/F") {
+            var data = {
+                x: msg.args[1].value,
+                y: msg.args[2].value,
+                z: msg.args[3].value
+            };
+            // console.dir(data);
+            var cursor = getCursor(userId);
+            if(cursor!=null){
+                cursor.filterMotion.call(cursor,data);
+            }
+        }else if(address=="/User Joined"){
+            addUser(userId,false,Kinect);
+        }else if(address=="/User Left"){
+            removeUser(userId);
         }
     });
     
@@ -75,13 +100,13 @@ function init(){
     setupGame();
 }
 
-function addUser(socketNum, isDefault){
+function addUser(socketNum, isDefault, filter){
     var brush = userBrushes[userNum];
     userNum++;
     if(userNum>userBrushes.length-1){
         userNum = 0;
     }
-    var cursor = new Cursor(socketNum,brush);
+    var cursor = new Cursor(socketNum,brush,filter);
     cursors.push(cursor);
     
     if(!isDefault){

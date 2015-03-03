@@ -25,7 +25,11 @@ function setupOSC(){
     oscSocket = udp.createSocket("udp4", function(msg, rinfo) {
       var error;
       try {
-        return console.log(osc.fromBuffer(msg));
+          var data = osc.fromBuffer(msg);
+          console.log(data);
+          if(game){
+            game.emit('osc', data);
+          }
       } catch (_error) {
         error = _error;
         return console.log("invalid OSC packet");
@@ -39,7 +43,7 @@ function setupOSC(){
       buf = osc.toBuffer({
         address: "/heartbeat",
         args: [
-          1.2, 2.0, 1.6, 17
+            17, 1.2, 2.0, 1.6
         ]
       });
       return oscSocket.send(buf, 0, buf.length, 3000, "localhost"); //data, ?, dataSize, port, address
@@ -47,6 +51,8 @@ function setupOSC(){
 }
 
 setupOSC();
+
+//setInterval(sendHeartbeat,2000);
 
 io.on('connection', function(socket){
     console.log('client '+clientNum+' connected');
